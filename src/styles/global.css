@@ -1,0 +1,96 @@
+@import './reset.css';
+@import './typogrphy.css';
+@import './variable.css';
+
+body{
+    background-color: var(--color-neutral-50);
+    color: var(--color-neutral-900);
+    margin: 0;
+    font-family: var(--font-family)
+}
+main{
+    display: flex;
+    flex-direction: column;
+}
+.seccion-con-ancla{
+    scroll-margin-top: 104px;
+  }
+h1{
+    font-weight: var(--font-weight-bold);
+    line-height: var(--font-lineheight-4xl);
+    font-size: var(--font-size-4xl);
+}
+
+h2{
+    font-weight: var(--font-weight-bold);
+    line-height: var(--font-lineheight-2xl);
+    font-size: var(--font-size-2xl);
+}
+
+h3{
+    font-weight: var(--font-weight-medium);
+    line-height: var(--font-lineheight-md);
+    font-size: var(--font-size-lg);
+}
+h4{
+    font-weight: var(--font-weight-medium);
+    line-height: var(--font-lineheight-sm);
+    font-size: var(--font-size-md);
+}
+p{
+    font-weight: var(--font-weight-regular);
+    line-height: var(--font-lineheight-sm);
+    font-size: var( --font-size-sm);
+}
+.caption{
+    font-weight: var(--font-weight-regular);
+    line-height: var(--font-lineheight-xs);
+    font-size: var(--font-size-xs);
+}
+@media (min-width: 1024px) {
+    h1{
+        font-weight: var(--font-weight-bold);
+        line-height: var(--font-lineheight-6xl);
+        font-size: var(--font-size-6xl);
+    }
+
+    h2{
+        font-weight: var(--font-weight-bold);
+        line-height: var(--font-lineheight-5xl);
+        font-size: var(--font-size-5xl);
+    }
+
+    h3{
+        font-weight: var(--font-weight-medium);
+        line-height: var(--font-lineheight-3xl);
+        font-size: var(--font-size-3xl);
+    }
+    h4{
+        font-weight: var(--font-weight-medium);
+        line-height: var(--font-lineheight-xl);
+        font-size: var(--font-size-xl);
+    }
+    p{
+        font-weight: var(--font-weight-regular);
+        line-height: var(--font-lineheight-lg);
+        font-size: var(--font-size-md);
+    }
+    .caption{
+        font-weight: var(--font-weight-regular);
+        line-height: var(--font-lineheight-xs);
+        font-size: var(--font-size-xs);
+    }
+}
+.padding-lateral{
+    padding-left: var(--space-16px);
+    padding-right: var(--space-16px);
+}
+@media (min-width: 1024px) {
+    .padding-lateral{
+        padding-left: var(--space-64px);
+        padding-right: var(--space-64px);
+    }
+}
+.color-amarillo{
+    color: var(--color-amarillo-300);
+}

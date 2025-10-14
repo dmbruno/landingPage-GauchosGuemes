@@ -1,22 +1,21 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+---
+import '../styles/global.css'
+import Footer from '../components/Footer.astro'
+import Header from '../components/Header.astro'
+import Presentacion from '../components/sections/Presentacion.astro'
+import Galeria from '../components/sections/Galeria.astro'
+import Eventos from '../components/sections/Eventos.astro'
+import Faq from '../components/sections/Faq.astro'
+import Contacto from '../components/sections/Contacto.astro'
+---
+<body>
+	<Header />
+	<main>
+		<Presentacion />
+		<Eventos />
+		<Galeria />
+		<Faq />
+		<Contacto />
+	</main>
+	<Footer />
+</body>

@@ -1,0 +1,248 @@
+---
+import  LogoLight  from '../assets/imgs/logoCompleto-blanco.svg'
+import  LogoIcono  from '../assets/imgs/logo-amarillo.svg'
+import arrowRight from '../assets/iconos/arrow_right_alt.svg'
+---
+
+<header class="site-header">
+    <div class="container">
+        <a href="/" class="logo">
+        <img src={LogoLight.src} alt="Logo Gauchos de Güemes">
+        </a>
+
+        <nav class="desktop-nav">
+            <a class="link" href="/">Inicio</a>
+            <a class="link" href="/eventos">Eventos</a>
+            <a class="link" href="/galeria">Galería</a>
+            <a class="link" href="/preguntas-frecuentes">Preguntas frecuentes</a>
+        </nav>
+
+        <a href="/reserva" class="desktop-cta">
+            Solicita tu reserva
+            <img src={arrowRight.src} alt="">
+        </a>
+
+        <div id="menu-btn-container" class="menu">
+            <button class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false">
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </div>
+
+    <div id="mobile-menu" class="mobile-menu-overlay logo">
+        <div class="overlay-header">
+            <img src={LogoIcono.src} alt="Logo Gauchos de Güemes">
+        </div>
+        <nav class="mobile-nav">
+            <a class="link" href="/">Inicio</a>
+            <a class="link" href="/eventos">Eventos</a>
+            <a class="link" href="/galeria">Galería</a>
+            <a class="link" href="/preguntas-frecuentes">Preguntas Frecuentes</a>
+        </nav>
+
+        <div class="overlay-contact">
+            <p>Consultá tu fecha y reservá tu lugar como prefieras.</p>
+            <div class="linksContainer">
+                <a href="https://wa.me/..." target="_blank">WhatsApp</a>
+                <span>o</span>
+                <a href="/formulario">Formulario web</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<script>
+  // El script no necesita cambios
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const body = document.body;
+  
+  menuBtn.addEventListener('click', () => {
+    menuBtn.classList.toggle('active');
+    mobileMenu.classList.toggle('is-open');
+    
+    const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+    menuBtn.setAttribute('aria-expanded', !isExpanded);
+    menuBtn.setAttribute('aria-label', !isExpanded ? 'Cerrar menú' : 'Abrir menú');
+
+    if (mobileMenu.classList.contains('is-open')) {
+      body.style.overflow = 'hidden';
+    } else {
+      body.style.overflow = 'auto';
+    }
+  });
+</script>
+
+<style>
+    .site-header {
+        background-color: var(--color-bordo);
+        padding: var(--space-24px) var(--space-16px);
+        position: relative;
+        z-index: 100;
+    }
+    .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .logo img { 
+        /* height: 40px;  */
+        width: auto; 
+        display: block;
+    }
+    .desktop-nav, .desktop-cta { 
+        display: none; 
+    }
+    .menu { 
+        cursor: pointer; 
+        z-index: 101; 
+        position: relative; 
+    }
+    .menu-btn {
+        width: 30px;
+        height: 12px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2px;
+        background: transparent;
+        border: none;
+        padding: 10px;
+        box-sizing: content-box;
+    }
+    .menu-btn span {
+        display: block;
+        width: 30px;
+        height: 2px;
+        background: var(--color-neutral-50); 
+        border-radius: 2px;
+        transition: all 0.3s ease;
+        position: absolute;
+    }
+    .menu-btn span:nth-child(1) { top: calc(50% - 6px); }
+    .menu-btn span:nth-child(2) { top: calc(50% + 6px); }
+    .menu-btn.active span { background: var(--color-neutral-50); }
+    .menu-btn.active span:nth-child(1) { transform: rotate(45deg); top: 50%; }
+    .menu-btn.active span:nth-child(2) { transform: rotate(-45deg); top: 50%; }
+  
+    .mobile-menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--color-bordo);
+        color: var(--color-neutral-50);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-64px);
+        padding: var(--space-24px) var(--space-16px); 
+        transform: translateX(100%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.35s ease-in-out, opacity 0.35s ease-in-out;
+        z-index: 100;
+    }
+  
+    .mobile-menu-overlay.is-open {
+        transform: translateX(0);
+        opacity: 1;
+        pointer-events: auto;
+    }
+  
+    .mobile-nav { 
+        display: flex; 
+        flex-direction: column; 
+        gap: var(--space-24px);
+    }
+    .link { 
+        font-size: var(--font-size-2xl); 
+        line-height: var(--font-lineheight-2xl);
+        font-weight: var(--font-weight-medium);
+        cursor: pointer;
+        
+        transition: color 0.3s ease-out;
+    }
+    .link:hover{
+        color: var(--color-amarillo);
+        
+    }
+    .overlay-contact { 
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-24px);
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    .linksContainer{
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-16px);
+       align-items: center;
+    }
+    .overlay-contact a { 
+        font-size: var(--font-size-lg);
+        line-height: var(--font-lineheight-md) ;
+        font-style: italic;
+        padding-bottom: var(--space-4px);
+        border-bottom: 1px solid var(--color-amarillo);
+        display: inline-block;
+        width: fit-content
+    }
+
+  @media (min-width: 1024px) {
+    .site-header {
+        background-color: var(--color-bordo);
+        color: var(--color-neutral-50);
+        padding: var(--space-24px) var(--space-64px);
+    }
+    .menu { 
+        display: none; 
+    }
+    .desktop-nav { 
+        display: flex; 
+        align-items: center; 
+        gap: var(--space-24px); 
+    }
+    .link{
+        font-size: var(--font-size-md); 
+        line-height: var(--font-lineheight-sm);
+        font-weight: var(--font-weight-medium); 
+    }
+    .desktop-cta { 
+        display: flex;
+        gap: var(--space-8px);
+        align-items: center;
+        padding-bottom: var(--space-4px); 
+        border-bottom: 1px solid var(--color-neutral-50);
+        cursor: pointer;
+        font-weight: 400;!important
+        font-style: italic;!important
+        line-height: var(--font-lineheight-2xl);
+        transition: border-bottom 0.3s ease-out;
+    }
+    .desktop-cta img {
+        /* Estado inicial: invisible y movida a la izquierda */
+        opacity: 0;
+        transform: translateX(-15px); /* La movemos hacia la izquierda */
+        
+        /* Transición suave para la animación */
+        transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    }
+    .desktop-cta:hover{
+        border-bottom: 1px solid var(--color-amarillo);
+    }
+    .desktop-cta:hover img {
+        /* Estado hover: visible y en su posición original */
+        opacity: 1;
+        transform: translateX(0); /* Vuelve a su sitio */
+    }
+  }
+</style>

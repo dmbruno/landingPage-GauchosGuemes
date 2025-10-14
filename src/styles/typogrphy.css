@@ -1,0 +1,90 @@
+/* ==========================================================================
+   Definición de Fuentes (@font-face) para Gotham
+   ========================================================================== */
+
+/* --- Thin (Peso 100) --- */
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/Gotham-Thin.woff2') format('woff2');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/Gotham-ThinItalic.woff2') format('woff2');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* --- Light (Peso 300) --- */
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/GothamLight.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/GothamLightItalic.woff2') format('woff2');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* --- Book (Peso 400 - Regular) --- */
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/GothamBook.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/GothamBookItalic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* --- Medium (Peso 500) --- */
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/GothamMedium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --- Bold (Peso 700) --- */
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/GothamBold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --- Black (Peso 900) --- */
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/Gotham-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --- Ultra Italic (Peso 900 - Asumiendo que es Black Italic) --- */
+@font-face {
+  font-family: 'Gotham';
+  src: url('/fonts/Gotham-UltraItalic.woff2') format('woff2');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}

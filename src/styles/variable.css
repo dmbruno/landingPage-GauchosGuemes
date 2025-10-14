@@ -1,0 +1,80 @@
+/* variables.css */
+
+:root {
+    /* Variables de colores */
+      /* Principales */
+      --color-bordo: #5e1b1e;
+      --color-amarillo: #eeba51;
+      --color-celeste: #688e85;
+
+      /* Neutrales */
+      --color-neutral-900: #242220; /* Negro */
+      --color-neutral-800: #3f3b37;
+      --color-neutral-700: #5f5954;
+      --color-neutral-600: #7c7670;
+      --color-neutral-500: #9b958e;
+      --color-neutral-400: #b8b3ac;
+      --color-neutral-300: #d6d2cc;
+      --color-neutral-200: #e6e3df;
+      --color-neutral-100: #f2f0ed;
+       --color-neutral-50: #fefefe;  /* Blanco */
+    
+    /* Variables de tipografía */
+      /* - Family: */
+      --font-family: "Gotham", system-ui, sans-serif;
+  
+      /* - Weight: */
+      --font-weight-light: 300;
+      --font-weight-regular: 400; ;
+      --font-weight-medium: 500; 
+      --font-weight-semibold: 600;
+      --font-weight-bold: 700;
+    
+      /* - Size: */
+      --font-size-xs: 0.875rem;   /* 14px */
+      --font-size-sm: 1rem;      /* 16px */
+      --font-size-md: 1.125rem;  /* 18px */
+      --font-size-lg: 1.25rem;   /* 20px */
+      --font-size-xl: 1.375rem;    /* 22px */
+      --font-size-2xl: 1.5rem;     /* 24px */
+      --font-size-3xl: 1.75rem;   /* 28px */
+      --font-size-4xl: 2rem;     /* 32px */
+      --font-size-5xl: 2.25rem;    /* 36px */
+      --font-size-6xl: 3rem;     /* 48px */
+
+      /* - Line-height: (Unitless) */
+      --line-height-6xl: 1.292;  /* 62px @ 48px font-size */
+      --line-height-5xl: 1.333;  /* 48px @ 36px font-size */
+      --line-height-4xl: 1.313;  /* 42px @ 32px font-size */
+      --line-height-3xl: 1.357;  /* 38px @ 28px font-size */
+      --line-height-2xl: 1.333;  /* 32px @ 24px font-size */
+      --line-height-xl:  1.364;  /* 30px @ 22px font-size */
+      --line-height-lg:  1.4;    /* 28px @ 20px font-size */
+      --line-height-md:  1.5;    /* 27px @ 18px font-size */
+      --line-height-sm:  1.5;    /* 24px @ 16px font-size */
+      --line-height-xs:  1.5;    /* 21px @ 14px font-size */
+      
+    /* Espaciados */
+      --space-4px: 0.25rem;     /* 4px */
+      --space-8px: 0.5rem;      /* 8px */
+      --space-12px: 0.75rem;     /* 12px */
+      --space-16px: 1rem;       /* 16px */
+      --space-24px: 1.5rem;     /* 24px */
+      --space-32px: 2rem;       /* 32px */
+      --space-40px: 2.5rem;     /* 40px */
+      --space-48px: 3rem;       /* 48px */
+      --space-56px: 3.5rem;     /* 56px */
+      --space-64px: 4rem;       /* 64px */
+      --space-72px: 4.5rem;     /* 72px */
+      --space-80px: 5rem;       /* 80px */
+      --space-88px: 5.5rem;     /* 88px */
+      --space-96px: 6rem;       /* 96px */
+      --space-104px: 6.5rem;    /* 104px */
+      --space-112px: 7rem;      /* 112px */
+      --space-120px: 7.5rem;    /* 120px */
+      --space-128px: 8rem;      /* 128px */
+      --space-136px: 8.5rem;    /* 136px */
+      --space-144px: 9rem;      /* 144px */
+      --space-152px: 9.5rem;    /* 152px */
+      --space-156px: 9.75rem;   /* 156px */
+    }
