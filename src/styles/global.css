@@ -2,6 +2,9 @@
 @import './typogrphy.css';
 @import './variable.css';
 
+/* html {
+  font-size: 16px;
+} */
 body{
     background-color: var(--color-neutral-50);
     color: var(--color-neutral-900);
@@ -11,6 +14,7 @@ body{
 main{
     display: flex;
     flex-direction: column;
+    gap: var(--space-32px);
 }
 .seccion-con-ancla{
     scroll-margin-top: 104px;

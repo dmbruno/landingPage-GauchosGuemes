@@ -1,0 +1,64 @@
+---
+import arrowDown from '../../assets/iconos/arrow_drop_down.svg'
+---
+<section id="hero" class="hero">
+    <h1 class="titulo">Un espacio único para momentos que importan</h1>
+    <div class="verMasContainer">
+        <a href="#presentacion">Ver más</a>
+        <img src={arrowDown.src} alt="">
+    </div>
+</section>
+
+<style>
+    .hero {
+        height: 100vh;
+        
+        /* --- ✨ PROPIEDADES PARA LA IMAGEN DE FONDO --- */
+        background-image: url('/public/imgs/RENDER5.jpg'); /* Reemplaza con la URL de tu imagen */
+        background-size: cover;       /* Cubre todo el espacio disponible */
+        background-position: center;  /* Centra la imagen */
+        background-repeat: no-repeat; /* No repitas la imagen */
+        
+        /* Estilos para centrar el contenido del hero */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        gap: var(--space-32px);
+        /* Para que el texto sea legible (ver truco abajo) */
+        color: white;
+        text-align: center;
+        position: relative; /* Necesario para el truco del overlay */
+    }
+    .hero::before {
+        content: ''; /* Obligatorio para que el pseudo-elemento se muestre */
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        
+        /* El color del overlay. El '0.5' es la opacidad (50%) */
+        background-color: rgba(94, 27, 30, 0.25); 
+        
+        /* Asegura que el overlay esté debajo del texto */
+        z-index: 1;
+    }
+
+    /* Y asegúrate de que el contenido del hero esté por encima del overlay */
+    .hero > * {
+        position: relative;
+        z-index: 2;
+    }
+    .titulo{
+        max-width: 740px;
+    }
+    .verMasContainer{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-amarillo);
+        cursor: pointer;
+    }
+</style>

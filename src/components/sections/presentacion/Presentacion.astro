@@ -1,0 +1,61 @@
+---
+import Cards from './presentacionCard.astro'
+---
+<section id="presentacion" class="presentacionContainer padding-lateral">
+    <div class="containerUp">
+        <h2 class="subtitulo">Un espacio renovado para tus grandes momentos</h2>
+        <div>
+            <p class="parrafo margin"> 
+                En Circunvalación Oeste, a minutos de la ciudad y rodeado de naturaleza, nace un salón pensado para          convertirse en el escenario de tus recuerdos más importantes.
+            </p>
+            <p class="parrafo">
+                Ambientes modernos, totalmente renovados, con audio e iluminación profesional y un servicio atento en cada detalle.
+            </p>
+        </div>
+
+    </div>
+    <div class="containerDown">
+        <Cards />
+    </div>
+
+</section>
+<style>
+    .presentacionContainer{
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-32px);
+        align-items: center;
+        justify-content: center;
+        padding-top: var(--space-24px);
+        padding-bottom: var(--space-24px);
+        
+      
+        /* --- ✨ PROPIEDADES PARA LA IMAGEN DE FONDO --- */
+        background-image: url('/public/imgs/Fondoclaro.png'); /* Reemplaza con la URL de tu imagen */
+        background-size: cover;       /* Cubre todo el espacio disponible */
+        background-position: center;  /* Centra la imagen */
+        background-repeat: no-repeat; /* No repitas la imagen */
+    }
+    .containerUp{
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-16px);
+        align-items: flex-start;
+        justify-content: center;
+    }
+    .subtitulo{
+        text-align: center;
+    }
+    .parrafo{
+        text-align: left;
+    }
+    .margin{
+        margin-bottom: var(--space-12px);
+    }
+    .containerDown{
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-24px);
+        justify-content: center;
+    }
+</style>

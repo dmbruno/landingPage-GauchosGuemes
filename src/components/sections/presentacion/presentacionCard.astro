@@ -1,0 +1,62 @@
+---
+import capacidad from '../../../assets/iconos/tecnicaIcono.svg'
+import tecnica from '../../../assets/iconos/tecnicaIcono.svg'
+import mobiliario from '../../../assets/iconos/mobiliarioIcono.svg'
+import aire from '../../../assets/iconos/aireIcono.svg'
+import catering from '../../../assets/iconos/cateringIcono.svg'
+
+
+---
+<article class="card">
+    <img src={capacidad.src} alt="">
+    <p>
+        <span class="bold">Capacidad:</span> 800 m² para recibir desde reuniones íntimas hasta grandes celebraciones de hasta 1.200 invitados.
+    </p>
+</article>
+
+<article class="card">
+    <img src={tecnica.src} alt="">
+    <p>
+        <span class="bold">Técnica adaptable:</span> Sonido e iluminación profesional que acompañan y realzan cada momento de tu evento.
+    </p>
+</article>
+
+<article class="card">
+    <img src={mobiliario.src} alt="">
+    <p>
+        <span class="bold">Mobiliario incluido:</span> Mesas y sillas de calidad, dispuestas según la dinámica y estilo de tu celebración.
+    </p>
+</article>
+
+<article class="card">
+    <img src={aire.src} alt="">
+    <p>
+        <span class="bold">Aire acondicionado:</span> Temperatura agradable en todo el salón para que cada invitado disfrute con total confort.
+    </p>
+</article>
+
+<article class="card">
+    <img src={catering.src} alt="">
+    <p>
+        <span class="bold">Catering:</span> Opciones de catering y barras de tragos pensadas para adaptarse a tu estilo y necesidades.
+    </p>
+</article>
+
+<style>
+    .card{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: var(--space-4px);
+        width: 100%;
+    }
+    .bold{
+        font-weight: var(--font-weight-bold);
+    }
+    @media (min-width: 1024px) {
+        .card{
+         width: calc(50% - 0.75rem);
+        }
+    }
+</style>
