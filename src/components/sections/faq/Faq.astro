@@ -1,0 +1,84 @@
+---
+import Preguntas from "./preguntasFaq.astro"
+import foto from "../../../assets/imgs/fotoFaq.png"
+---
+
+<section id="faq" class="faq padding-lateral">
+  <div class="faq__arriba">
+    <h2>Resolvemos tus dudas</h2>
+    <p>
+      Acá respondemos las preguntas más comunes. Si no encontrás lo que buscás,
+      escribinos y lo charlamos.
+    </p>
+  </div>
+  <div class="faq__abajo">
+    <div class="abajo__izquierda">
+      <img src={foto.src} alt="">
+    </div>
+    <div class="abajo__derecha">
+      <Preguntas />
+    </div>
+  </div>
+</section>
+<style>
+  .faq{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    gap: var(--space-16px);
+    padding-top: var(--space-24px);
+    padding-bottom: var(--space-24px);
+  }
+  .faq__arriba{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-16px);
+    width: 100%;
+  }
+  .abajo__izquierda{
+    display: none;
+  }
+  .abajo__derecha{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+  }
+.abajo__derecha::before {
+  content: '';
+  position: absolute;
+  z-index: -1; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Lo clava en el centro absoluto */
+  width: 100%; /* Ocupa todo el ancho disponible */
+  aspect-ratio: 3 / 2; /* Ejemplo: si tu imagen es de 1200x800 */
+
+  /* Ahora llenamos esta caja con la imagen */
+  background-image: url("/public/imgs/rombosFOndo.png");
+  background-size: contain; /* La imagen cubre la caja */
+  background-position: center;
+  background-repeat: no-repeat;
+}
+  @media (min-width: 1024px){
+    .faq{
+      gap: var(--space-48px);
+      padding-top: var(--space-48px);
+      padding-bottom: var(--space-48px);
+    }
+    .faq__abajo{
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: var(--space-48px);
+    }
+    .abajo__izquierda{
+      display: flex;
+    }
+  }
+</style>

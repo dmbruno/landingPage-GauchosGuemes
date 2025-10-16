@@ -1,0 +1,97 @@
+---
+import { preguntas } from "./data";
+---
+
+<dl class="preguntasContenedor">
+  {
+    preguntas.map((pregunta) => (
+      <div class="pregunta">
+        <dt>
+          <h4>
+            <button
+              aria-expanded="false"
+              aria-controls={`faq${pregunta.id}`}
+              id={`q${pregunta.id}`}
+            >
+              {pregunta.pregunta}
+              <span class="faq-icon" aria-hidden="true">
+                <svg
+                  width="16"
+                  height="10"
+                  viewBox="0 0 16 10"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7.02326 9.06915L0.27907 2.12766C0.186047 2.03191 0.116279 1.92819 0.0697674 1.81649C0.0232558 1.70479 0 1.58511 0 1.45745C0 1.20213 0.0852713 0.978723 0.255814 0.787234C0.426357 0.595745 0.651163 0.5 0.930233 0.5H15.0698C15.3488 0.5 15.5736 0.595745 15.7442 0.787234C15.9147 0.978723 16 1.20213 16 1.45745C16 1.52128 15.907 1.74468 15.7209 2.12766L8.97674 9.06915C8.82171 9.22872 8.66667 9.34043 8.51163 9.40426C8.35659 9.46809 8.18605 9.5 8 9.5C7.81395 9.5 7.64341 9.46809 7.48837 9.40426C7.33333 9.34043 7.17829 9.22872 7.02326 9.06915Z"
+                    fill="#5e1b1e"
+                  />
+                </svg>
+              </span>
+            </button>
+          </h4>
+        </dt>
+        <dd id={`faq${pregunta.id}`}>
+          <p>{pregunta.respuesta}</p>
+        </dd>
+      </div>
+    ))
+  }
+</dl>
+<style>
+
+    .pregunta{
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-32px) 0;
+      border-bottom: 1px solid var(--color-neutral-200);
+    }
+    button {
+      display: flex;
+      width: 100%;
+      cursor: pointer;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-16px);
+      gap: var(--space-40px);
+    }
+    dd {
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition:
+      max-height 0.4s ease,
+      opacity 0.4s ease;
+      text-align: left;
+    }
+
+    .faq-icon {
+      flex: none;
+    }
+
+    button .faq-icon svg {
+      transition: transform 0.3s ease;
+    }
+
+    button[aria-expanded="true"] .faq-icon svg {
+      transform: rotate(180deg);
+    }
+</style>
+<script>
+  document.querySelectorAll("button[aria-controls]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const dd = document.getElementById(button.getAttribute("aria-controls"));
+      const expanded = button.getAttribute("aria-expanded") === "true";
+
+      button.setAttribute("aria-expanded", String(!expanded));
+
+      if (!expanded) {
+        dd.style.maxHeight = dd.scrollHeight + "px";
+        dd.style.opacity = 1;
+      } else {
+        dd.style.maxHeight = null;
+        dd.style.opacity = 0;
+      }
+    });
+  });
+</script>
