@@ -1,0 +1,177 @@
+---
+import rombo from "../../../assets/imgs/rombo.svg";
+
+import Cards from "./eventosCards.astro";
+---
+
+<section id="eventos" class="eventos padding-lateral">
+  <div class="arriba">
+    <div class="arriba__tituloContenedor">
+      <img src={rombo.src} alt="" />
+      <h2>Versatil y listo para cada ocación</h2>
+    </div>
+    <p>
+      Desde celebraciones sociales de día y noche, hasta convenciones y eventos
+      corporativos, el salón se adapta a lo que imagines.
+    </p>
+  </div>
+  <div class="abajo">
+    <div class="abajo__cardContenedor">
+      <Cards />
+    </div>
+    <div class="abajo__ctaContenedor">
+      <p class="ctaContenedor__frase">
+        Y muchos otros momentos especiales, siempre a tu medida.
+      </p>
+      <a class="ctaContenedor__cta" href="">
+        Solicita tu reserva
+        <svg
+          width="24"
+          height="25"
+          viewBox="0 0 24 25"
+          fill="currentColor"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <mask
+            id="mask0_279_873"
+            style="mask-type:alpha"
+            maskUnits="userSpaceOnUse"
+            x="0"
+            y="0"
+            width="24"
+            height="25"
+          >
+            <rect y="0.636719" width="24" height="24" fill="currentColor"
+            ></rect>
+          </mask>
+          <g mask="url(#mask0_279_873)">
+            <path
+              d="M16.15 13.6358H5C4.71667 13.6358 4.47917 13.5399 4.2875 13.3483C4.09583 13.1566 4 12.9191 4 12.6358C4 12.3524 4.09583 12.1149 4.2875 11.9233C4.47917 11.7316 4.71667 11.6358 5 11.6358H16.15L13.3 8.78575C13.1 8.58575 13.0042 8.35242 13.0125 8.08575C13.0208 7.81909 13.1167 7.58575 13.3 7.38575C13.5 7.18575 13.7375 7.08159 14.0125 7.07325C14.2875 7.06492 14.525 7.16075 14.725 7.36075L19.3 11.9358C19.4 12.0358 19.4708 12.1441 19.5125 12.2608C19.5542 12.3774 19.575 12.5024 19.575 12.6358C19.575 12.7691 19.5542 12.8941 19.5125 13.0108C19.4708 13.1274 19.4 13.2358 19.3 13.3358L14.725 17.9108C14.525 18.1108 14.2875 18.2066 14.0125 18.1983C13.7375 18.1899 13.5 18.0858 13.3 17.8858C13.1167 17.6858 13.0208 17.4524 13.0125 17.1858C13.0042 16.9191 13.1 16.6858 13.3 16.4858L16.15 13.6358Z"
+              fill="#5e1b1e"></path>
+          </g>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+<style>
+  .eventos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-32px);
+    padding-top: var(--space-24px) ;
+    padding-bottom: var(--space-24px) ;
+  }
+  .arriba {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16px);
+    text-align: center;
+    width: 100%;
+  }
+  .arriba__tituloContenedor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-12px);
+  }
+  .abajo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: var(--space-32px);
+    width: 100%;
+  }
+  .abajo__cardContenedor {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-24px);
+  }
+  .abajo__ctaContenedor {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16px);
+    align-items: center;
+  }
+  .ctaContenedor__frase {
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-2xl);
+    font-size: var(--font-size-24px);
+    font-style: italic;
+  }
+  .ctaContenedor__cta {
+    display: inline-flex;
+    gap: var(--space-8px);
+    align-items: center;
+    padding: var(--space-8px) 0;
+    border-bottom: 1px solid var(--color-bordo);
+    cursor: pointer;
+    font-weight: var(--font-weight-regular);
+    font-style: italic;
+    line-height: var(--line-height-md);
+    transition: border-bottom 0.3s ease-out;
+    color: var(--color-bordo);
+    font-size: var(--font-size-16px);
+  }
+
+  @media (min-width: 1024px) {
+    .eventos {
+      gap: var(--space-40px);
+      padding-top: var(--space-48px);
+      padding-top: var(--space-48px);
+    }
+    .arriba {
+      gap: var(--space-24px);
+    }
+    .arriba__tituloContenedor {
+      gap: var(--space-16px);
+    }
+    .abajo {
+      gap: var(--space-88px);
+    }
+    .abajo__ctaContenedor {
+      gap: var(--space-24px);
+    }
+    .ctaContenedor__frase {
+        font-weight: var(--font-weight-regular);
+        line-height: var(--line-height-5xl);
+        font-size: var(--font-size-36px);
+      font-style: italic;
+    }
+    .ctaContenedor__cta {
+      font-size: var(--font-size-18px);
+    }
+    .ctaContenedor__cta svg {
+      /* Estado inicial: invisible y movido a la izquierda */
+      opacity: 0;
+      transform: translateX(-15px);
+
+      /* Transición suave para la animación */
+      transition:
+        opacity 0.3s ease-out,
+        transform 0.3s ease-out;
+    }
+
+    .ctaContenedor__cta:hover svg {
+      /* Estado hover: visible y en su posición original */
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .abajo__cardContenedor {
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: var(--space-24px);
+    }
+  }
+</style>
