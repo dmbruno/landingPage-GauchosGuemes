@@ -1,0 +1,43 @@
+---
+import Slider from "./slider.astro"
+---
+
+<section id="galeria" class="galeria padding-lateral">
+    <div class="galeria__arriba">
+        <h2>Descubrí cada rincón</h2>
+        <p>Recorré el salón, los espacios exteriores y empezá a imaginar tu evento.</p>
+    </div>
+    <div class="galeria__abajo">
+        <Slider />
+    </div>
+
+</section>
+
+<style>
+    .galeria{
+        display: flex;
+        flex-direction: column;
+        padding-top: var(--space-24px);
+        padding-bottom: var(--space-24px);
+        gap: var(--space-32px);
+        overflow: hidden; /* <-- LA LÍNEA CLAVE QUE RESUELVE TODO */
+    }
+    .galeria__arriba{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-16px);
+    }
+    @media (min-width: 1024px){
+        .galeria{
+            padding-top: var(--space-48px);
+            padding-bottom: var(--space-48px);
+            gap: var(--space-40px);
+        }
+        .galeria__arriba{
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+</style>

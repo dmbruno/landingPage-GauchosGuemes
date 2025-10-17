@@ -1,0 +1,173 @@
+---
+// Aquí puedes definir las imágenes que usará el slider.
+// Más adelante, podrías pasar esto como una "prop" para hacerlo más reutilizable.
+const imagenes = [
+  "/public/imgs/RENDER1.jpg", // ¡Importante! Asegúrate de que estas rutas sean correctas en tu proyecto.
+  "/public/imgs/RENDER5.jpg",
+  "/public/imgs/eventoAireLibreFoto.jpg",
+  "/public/imgs/RENDER5.jpg",
+];
+---
+
+<div class="slider-component-container">
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      {
+        imagenes.map((src) => (
+          <div class="swiper-slide">
+            <img src={src} alt="Vista del salón de eventos" loading="lazy" />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="slider-navigation">
+    <button class="swiper-button-prev-custom" aria-label="Slide anterior">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="24px"
+        viewBox="0 -960 960 960"
+        width="24px"
+        fill="#eeba51"
+        ><path
+          d="m314-440 114 114q12 12 11.5 28T428-270q-12 12-28.5 12.5T371-269L188-452q-12-12-12-28t12-28l183-183q12-12 28.5-11.5T428-690q11 12 11.5 28T428-634L314-520h446q17 0 28.5 11.5T800-480q0 17-11.5 28.5T760-440H314Z"
+        ></path></svg
+      >
+    </button>
+    <button class="swiper-button-next-custom" aria-label="Siguiente slide">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 25"
+        fill="#eeba51"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <mask
+          id="mask0_279_873"
+          style="mask-type:alpha"
+          maskUnits="userSpaceOnUse"
+          x="0"
+          y="0"
+          width="24"
+          height="25"
+        >
+          <rect y="0.636719" width="24" height="24" fill="#eeba51r"></rect>
+        </mask>
+        <g mask="url(#mask0_279_873)">
+          <path
+            d="M16.15 13.6358H5C4.71667 13.6358 4.47917 13.5399 4.2875 13.3483C4.09583 13.1566 4 12.9191 4 12.6358C4 12.3524 4.09583 12.1149 4.2875 11.9233C4.47917 11.7316 4.71667 11.6358 5 11.6358H16.15L13.3 8.78575C13.1 8.58575 13.0042 8.35242 13.0125 8.08575C13.0208 7.81909 13.1167 7.58575 13.3 7.38575C13.5 7.18575 13.7375 7.08159 14.0125 7.07325C14.2875 7.06492 14.525 7.16075 14.725 7.36075L19.3 11.9358C19.4 12.0358 19.4708 12.1441 19.5125 12.2608C19.5542 12.3774 19.575 12.5024 19.575 12.6358C19.575 12.7691 19.5542 12.8941 19.5125 13.0108C19.4708 13.1274 19.4 13.2358 19.3 13.3358L14.725 17.9108C14.525 18.1108 14.2875 18.2066 14.0125 18.1983C13.7375 18.1899 13.5 18.0858 13.3 17.8858C13.1167 17.6858 13.0208 17.4524 13.0125 17.1858C13.0042 16.9191 13.1 16.6858 13.3 16.4858L16.15 13.6358Z"
+            fill="#eeba51"></path>
+        </g>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  @import "swiper/css";
+
+  .slider-component-container {
+    position: relative;
+  }
+
+  .swiper {
+    /* Clave: El contenedor de Swiper debe poder desbordarse */
+    overflow: visible;
+  }
+
+  .swiper-slide {
+    border-radius: 24px;
+    overflow: hidden;
+    background-color: #f0f0f0;
+    
+    /* --- LA SOLUCIÓN PARA MOBILE --- */
+    /* Dejamos que Swiper y el aspect-ratio controlen el tamaño */
+    aspect-ratio: 16 / 9; /* O la proporción que prefieras, ej: 4 / 3 */
+  }
+
+  .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    
+  }
+
+  .slider-navigation {
+    display: flex;
+    gap: var(--space-8px);
+    margin-top: var(--space-16px);
+  }
+
+  .swiper-button-prev-custom,
+  .swiper-button-next-custom {
+    width: 93px;
+    height: 40px;
+    background-color: #5c2c2c;
+    border-radius: 28px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    transition: background-color 0.2s ease;
+  }
+
+  .swiper-button-prev-custom:hover,
+  .swiper-button-next-custom:hover {
+    background-color: #7a3a3a;
+  }
+
+  /* --- ESTILOS SOLO PARA DESKTOP --- */
+  @media (min-width: 1024px) {
+    .swiper-slide {
+      /* Aquí sí definimos un alto y ancho fijos para desktop */
+      height: 600px;
+      width: 85%; /* Para que se vea el siguiente slide */
+      aspect-ratio: auto; /* Anulamos el aspect-ratio */
+    }
+    .slider-navigation {
+      gap: var(--space-16px);
+      margin-top: var(--space-32px);
+    }
+  }
+</style>
+
+<script>
+  import Swiper from "swiper";
+  import { Navigation, Autoplay } from "swiper/modules";
+
+  const swiper = new Swiper(".swiper", {
+    modules: [Navigation, Autoplay],
+
+    // --- Configuración base (Mobile-First 📱) ---
+    // CAMBIO 1: Usamos rewind en lugar de loop
+    rewind: true,
+    slidesPerView: "auto",
+    spaceBetween: 16,
+    centeredSlides: true, // Mantenemos el centrado para mobile
+
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
+    },
+
+    navigation: {
+      nextEl: ".swiper-button-next-custom",
+      prevEl: ".swiper-button-prev-custom",
+    },
+
+    // --- Adaptación para pantallas más grandes (Desktop 🖥️) ---
+    breakpoints: {
+      1024: {
+        slidesPerView: "auto",
+        spaceBetween: 24,
+        // CAMBIO 2: Desactivamos el centrado, ya no necesitamos tocar el loop/rewind
+        centeredSlides: false,
+        autoplay: false, // Desactivamos el autoplay en desktop
+      },
+    },
+  });
+</script>
