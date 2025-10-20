@@ -1,0 +1,58 @@
+---
+import Form from "./contactForm/index.jsx"
+---
+<section id="contacto" class="contacto padding-lateral">
+    <div class="contacto__arribaIzquierda">
+        <h2>Solicitá tu reserva y viví experiencias únicas</h2>
+        <div class="arribaIzquierda__parrafos">
+            <p>Podes solicitar tu reserva de la manera que prefieras, ya sea completando este formulario o hablando con nuestro asistente por Whatspp.
+            </p>
+            <p>Completando cualquiera de los dos, nuestro equipo recibirá tu solicitud y se pondrá en contacto para coordinar fecha y detalles.
+            </p>
+        </div>
+    </div>
+    <div class="contacto__abajoDerecha">
+        <Form client:visible/>
+    </div>
+</section>
+<style>
+    .contacto{
+        display: flex;
+        flex-direction: column;
+        padding-top: var(--space-24px);
+        padding-bottom: var(--space-24px);
+        justify-content: center;
+        gap: var(--space-32px);
+        background-image: url("/public/imgs/Fondobordo.webp");
+        background-size: cover;       /* Cubre todo el espacio disponible */
+        background-position: center;  /* Centra la imagen */
+        background-repeat: no-repeat; /* No repitas la imagen */
+        color: var(--color-neutral-50);
+        margin-bottom: var(--space-32px);
+        
+    }
+    .contacto__arribaIzquierda{
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-16px);
+        align-items: flex-start;
+        max-width: 562px;
+    }
+    .arribaIzquierda__parrafos{
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-12px);
+    }
+    @media (min-width: 1024px){
+        .contacto{
+            display: flex;
+            flex-direction: row;
+            padding-top: var(--space-56px);
+            padding-bottom: var(--space-56px);
+            gap: var(--space-48px);
+            justify-content: space-between;
+            margin-bottom: var(--space-56px);
+            
+        }
+    }
+</style>
