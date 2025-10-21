@@ -1,6 +1,5 @@
 // src/components/ContactForm/steps/SuccessStep.jsx
-
-import  { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 const SuccessIcon = () => (
 <svg width="89" height="99" viewBox="0 0 89 99" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -8,16 +7,19 @@ const SuccessIcon = () => (
 </svg>
 );
 
-export default function SuccessStep({ onMount }) {
-  // Opcional: Si necesitas limpiar el storage al mostrar este componente
+export default function SuccessStep({ stepStatus, onMount }) {
+  // Asignamos la clase de visibilidad
+  const activeClass = stepStatus === 'active' ? 'step-active' : '';
+
   useEffect(() => {
-    if (onMount) {
+    // Limpia el storage SÓLO si este paso está activo
+    if (stepStatus === 'active' && onMount) {
       onMount();
     }
-  }, []); // Se ejecuta solo una vez cuando el componente se monta
+  }, [stepStatus, onMount]); // Se ejecuta cuando 'stepStatus' cambia
 
   return (
-    <div className="contact-form success-message">
+    <div className={`contact-form success-message form-step ${stepStatus}`}>
       <SuccessIcon />
       <h4>¡Tu reserva ha sido solicitada!</h4>
       <p>Nuestro equipo se pondrá en contacto pronto para coordinar la fecha y los detalles de tu evento.</p>

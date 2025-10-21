@@ -89,6 +89,8 @@
     font-size: var(--font-size-14px);
     margin-top: var(--space-4px);
     font-weight: var(--font-weight-light);
+    /* SOLUCIÓN AL LAYOUT SHIFT */
+    min-height: 1.4em;
 }
 
 .review-data {
@@ -137,4 +139,54 @@
         flex-wrap: wrap;
         gap: var(--space-16px);
     }
+}
+
+/* ==========================================================================
+    NUEVOS ESTILOS PARA LA ANIMACIÓN DE SLIDER (TIPO SLIDER)
+========================================================================== 
+*/
+
+/* 1. El wrapper del <form> que evita el desbordamiento */
+.contact-form-slider {
+  overflow: hidden;
+  position: relative;
+  /* Hacemos que coincida con el max-width de tu .contact-form */
+  max-width: 544px; 
+}
+
+/* 2. El contenedor que apila los pasos */
+.form-steps-container {
+  display: grid;
+  grid-template-areas: "step";
+}
+
+/* 3. Cada paso individual */
+.form-step {
+  grid-area: step; /* Todos en la misma celda */
+  
+  /* Ocultos por defecto */
+  opacity: 0;
+  visibility: hidden;
+  
+  /* La animación */
+  transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+}
+
+/* 4. DÓNDE ESTÁ CADA PASO */
+
+/* Los pasos "pasados" (clase .prev) están a la IZQUIERDA */
+.form-step.prev {
+  transform: translateX(-100%);
+}
+
+/* Los pasos "futuros" (clase .next) están a la DERECHA */
+.form-step.next {
+  transform: translateX(100%);
+}
+
+/* El paso "activo" (clase .active) está en el CENTRO y VISIBLE */
+.form-step.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
 }

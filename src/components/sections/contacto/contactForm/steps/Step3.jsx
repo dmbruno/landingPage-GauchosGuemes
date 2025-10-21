@@ -1,7 +1,10 @@
+// src/components/ContactForm/steps/Step3.jsx
+import React from 'react';
 
-export default function Step3({ formData, acceptedTerms, handleTermsChange, onSubmit, onBack, status }) {
+export default function Step3({ stepStatus, formData, acceptedTerms, handleTermsChange, onBack, status }) {
+  
   return (
-    <form onSubmit={onSubmit} className="contact-form">
+    <div className={`contact-form form-step ${stepStatus}`}>
       <div className="form-header">
         <h3>Revisá tu solicitud</h3>
         <p>Paso 3/3</p>
@@ -29,6 +32,6 @@ export default function Step3({ formData, acceptedTerms, handleTermsChange, onSu
         <button type="button" onClick={onBack} className="secondary-btn">Volver</button>
         <button type="submit" className="submit-btn celeste" disabled={status === 'Enviando...' || !acceptedTerms}>{status}</button>
       </div>
-    </form>
+    </div>
   );
 }

@@ -1,7 +1,10 @@
+// src/components/ContactForm/steps/Step2.jsx
+import React from 'react';
 
-export default function Step2({ formData, errors, handleChange, onNext, onBack }) {
+export default function Step2({ stepStatus, formData, errors, handleChange, onNext, onBack }) {
+  
   return (
-    <div className="contact-form">
+    <div className={`contact-form form-step ${stepStatus}`}>
       <div className="form-header">
         <h3>Datos opcionales</h3>
         <p>Paso 2/3</p>
@@ -11,21 +14,22 @@ export default function Step2({ formData, errors, handleChange, onNext, onBack }
         <div className="form-group">
             <label>Tipo de evento</label>
             <input type="text" name="eventType" value={formData.eventType} onChange={handleChange} />
-            {errors.eventType && <p className="error-text">{errors.eventType}</p>}
+            <p className="error-text">{errors.eventType || ''}</p>
         </div>
         <div className="form-group">
             <label>Cantidad estimada de personas</label>
             <input type="number" name="guestCount" value={formData.guestCount} onChange={handleChange} />
-            {errors.guestCount && <p className="error-text">{errors.guestCount}</p>}
+            <p className="error-text">{errors.guestCount || ''}</p>
         </div>
         <div className="form-group">
             <label>Servicios requeridos</label>
             <input type="text" name="services" value={formData.services} onChange={handleChange} />
+            <p className="error-text"></p>
         </div>
       </div>
       <div className="form-navigation space-between">
-        <button onClick={onBack} className="secondary-btn">Volver</button>
-        <button onClick={onNext} className="submit-btn">Siguiente</button>
+        <button type="button" onClick={onBack} className="secondary-btn">Volver</button>
+        <button type="button" onClick={onNext} className="submit-btn">Siguiente</button>
       </div>
     </div>
   );

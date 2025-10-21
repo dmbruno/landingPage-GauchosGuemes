@@ -1,8 +1,9 @@
+// src/components/ContactForm/index.jsx
 
-import React, { useState } from 'react'; // Agregamos useState aquí
+import React, { useState } from 'react';
 import { useFormState } from './useFormState';
 import { validateStep1, validateAllData } from './validation';
-import './ContactForm.css';
+import './contactForm.css';
 
 // Importamos los componentes de cada paso
 import Step1 from './steps/Step1';
@@ -13,7 +14,7 @@ import SuccessStep from './steps/SuccessStep';
 export default function ContactForm() {
   const [status, setStatus] = useState('Enviar solicitud');
 
-  // Nos aseguramos de extraer TODAS las funciones y variables que necesitamos del hook.
+  // Obtenemos todos los estados y funciones del hook
   const { 
     step, 
     formData, 
@@ -24,7 +25,8 @@ export default function ContactForm() {
     prevStep,
     clearStoredForm,
     acceptedTerms,
-    handleTermsChange
+    handleTermsChange,
+    direction 
   } = useFormState();
 
   const handleStep1Next = () => {
@@ -36,7 +38,7 @@ export default function ContactForm() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
     if (!acceptedTerms) {
       alert("Debes aceptar la política de privacidad y los términos para continuar.");
       return;
@@ -46,23 +48,55 @@ export default function ContactForm() {
 
     if (Object.keys(validationErrors).length === 0) {
       setStatus('Enviando...');
-      // Lógica de envío...
+      console.log('Enviando datos finales:', formData);
       await new Promise(resolve => setTimeout(resolve, 1500));
       setStatus('¡Enviado!');
       nextStep();
     }
   };
 
-  switch (step) {
-    case 1:
-      return <Step1 formData={formData} errors={errors} handleChange={handleChange} onNext={handleStep1Next} />;
-    case 2:
-      return <Step2 formData={formData} errors={errors} handleChange={handleChange} onNext={nextStep} onBack={prevStep} />;
-    case 3:
-      return <Step3 formData={formData} acceptedTerms={acceptedTerms} handleTermsChange={handleTermsChange} onSubmit={handleSubmit} onBack={prevStep} status={status} />;
-    case 4:
-      return <SuccessStep onMount={clearStoredForm} />;
-    default:
-      return null;
-  }
+  // ESTA ES LA NUEVA LÓGICA DE STATUS
+  const getStepStatus = (currentStepNumber) => {
+    if (currentStepNumber === step) return 'active';
+    if (currentStepNumber < step) return 'prev'; // Es un paso "pasado"
+    if (currentStepNumber > step) return 'next'; // Es un paso "futuro"
+    return '';
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="contact-form-slider">
+      {/* El 'data-direction' NO es necesario con esta nueva lógica de CSS */}
+      <div className="form-steps-container">
+        
+        {/* Pasamos 'stepStatus' en lugar de 'isActive' */}
+        <Step1 
+          stepStatus={getStepStatus(1)}
+          formData={formData} 
+          errors={errors} 
+          handleChange={handleChange} 
+          onNext={handleStep1Next} 
+        />
+        <Step2 
+          stepStatus={getStepStatus(2)}
+          formData={formData} 
+          errors={errors} 
+          handleChange={handleChange} 
+          onNext={nextStep} 
+          onBack={prevStep} 
+        />
+        <Step3 
+          stepStatus={getStepStatus(3)}
+          formData={formData} 
+          acceptedTerms={acceptedTerms} 
+          handleTermsChange={handleTermsChange} 
+          onBack={prevStep} 
+          status={status} 
+        />
+        <SuccessStep 
+          stepStatus={getStepStatus(4)}
+          onMount={clearStoredForm} 
+        />
+      </div>
+    </form>
+  );
 }
