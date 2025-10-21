@@ -22,9 +22,8 @@ export function useFormState() {
   const [formData, setFormData] = useState(loadInitialState);
   const [errors, setErrors] = useState({});
   const [acceptedTerms, setAcceptedTerms] = useState(false);
-  
-  // 1. AÑADIMOS EL NUEVO ESTADO DE DIRECCIÓN
   const [direction, setDirection] = useState('next'); 
+  const [formError, setFormError] = useState(''); // Para errores de envío
 
   useEffect(() => {
     try {
@@ -43,13 +42,12 @@ export function useFormState() {
     setAcceptedTerms(e.target.checked);
   };
 
-  // 2. ACTUALIZAMOS LAS FUNCIONES DE NAVEGACIÓN
   const nextStep = () => {
-    setDirection('next'); // Le decimos que vamos hacia adelante
+    setDirection('next');
     setStep((prev) => prev + 1);
   };
   const prevStep = () => {
-    setDirection('prev'); // Le decimos que vamos hacia atrás
+    setDirection('prev');
     setStep((prev) => prev - 1);
   };
 
@@ -57,7 +55,6 @@ export function useFormState() {
     sessionStorage.removeItem(STORAGE_KEY);
   };
 
-  // 3. EXPORTAMOS EL NUEVO ESTADO
   return {
     step,
     formData,
@@ -69,6 +66,8 @@ export function useFormState() {
     clearStoredForm,
     acceptedTerms,
     handleTermsChange,
-    direction, // <-- Exportamos la dirección
+    direction,
+    formError,
+    setFormError,
   };
 }

@@ -190,3 +190,24 @@
   visibility: visible;
   transform: translateX(0);
 }
+
+/* 5. ESTILOS PARA EL MENSAJE DE ERROR Y WHATSAPP */
+
+.success-message .error-icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 1rem;
+}
+
+.whatsapp-btn {
+  display: inline-block; /* Para que el <a> se vea como un botón */
+  text-decoration: none; /* Quitar subrayado del link */
+  margin-top: 1rem;
+  background-color: #25D366; /* Color de WhatsApp */
+  border-color: #25D366;
+}
+.whatsapp-btn:hover {
+  background-color: #128C7E;
+  border-color: #128C7E;
+  opacity: 1; /* Sobreescribir el hover genérico */
+}

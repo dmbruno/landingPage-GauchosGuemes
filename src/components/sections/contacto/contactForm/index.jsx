@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useFormState } from './useFormState';
 import { validateStep1, validateAllData } from './validation';
-import './contactForm.css';
+import './ContactForm.css';
 
 // Importamos los componentes de cada paso
 import Step1 from './steps/Step1';
@@ -26,7 +26,9 @@ export default function ContactForm() {
     clearStoredForm,
     acceptedTerms,
     handleTermsChange,
-    direction 
+    direction,
+    formError,
+    setFormError
   } = useFormState();
 
   const handleStep1Next = () => {
@@ -48,14 +50,39 @@ export default function ContactForm() {
 
     if (Object.keys(validationErrors).length === 0) {
       setStatus('Enviando...');
-      console.log('Enviando datos finales:', formData);
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      setStatus('¡Enviado!');
-      nextStep();
+      setFormError(''); // Limpiamos errores anteriores
+      
+      try {
+        // --- AQUÍ VA TU LÓGICA DE ENVÍO REAL ---
+        // Reemplaza esto con tu 'fetch' a tu API/backend
+        const response = await new Promise((resolve, reject) => {
+          // --- Simulación de ÉXITO (comenta la línea de error para usar esta) ---
+          setTimeout(() => resolve({ ok: true }), 1500);
+
+          // --- Simulación de ERROR (descomenta esta línea para probar el error) ---
+          // setTimeout(() => reject(new Error('Fallo simulado del servidor')), 1500);
+        });
+
+        if (!response.ok) {
+          throw new Error('El servidor no pudo procesar la solicitud.');
+        }
+
+        // --- ÉXITO ---
+        setStatus('¡Enviado!');
+        clearStoredForm(); // Limpia solo en caso de éxito
+        nextStep();
+
+      } catch (error) {
+        // --- MANEJO DEL ERROR ---
+        console.error('Error al enviar el formulario:', error);
+        setStatus('Reintentar'); // Cambiamos el texto del botón
+        setFormError('No pudimos enviar tu solicitud. Por favor, intentá de nuevo o comunicate por WhatsApp.');
+        nextStep(); // Llevamos al usuario al "paso 4" (que ahora es éxito O error)
+      }
     }
   };
 
-  // ESTA ES LA NUEVA LÓGICA DE STATUS
+  // Lógica para asignar el estado a cada paso
   const getStepStatus = (currentStepNumber) => {
     if (currentStepNumber === step) return 'active';
     if (currentStepNumber < step) return 'prev'; // Es un paso "pasado"
@@ -65,7 +92,6 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="contact-form-slider">
-      {/* El 'data-direction' NO es necesario con esta nueva lógica de CSS */}
       <div className="form-steps-container">
         
         {/* Pasamos 'stepStatus' en lugar de 'isActive' */}
@@ -94,6 +120,7 @@ export default function ContactForm() {
         />
         <SuccessStep 
           stepStatus={getStepStatus(4)}
+          formError={formError} // Pasamos el error
           onMount={clearStoredForm} 
         />
       </div>
