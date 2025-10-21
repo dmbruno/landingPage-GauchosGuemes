@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useFormState } from './useFormState';
 import { validateStep1, validateAllData } from './validation';
-import './ContactForm.css';
+import './contactForm.css';
 
 // Importamos los componentes de cada paso
 import Step1 from './steps/Step1';
