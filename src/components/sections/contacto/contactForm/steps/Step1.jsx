@@ -74,7 +74,6 @@ export default function Step1({ stepStatus, formData, errors, handleChange, onNe
         <p>Paso 1/3</p>
       </div>
       <div className="formInputContainer">
-        {/* --- Tus otros inputs (nombre, DNI, etc.) --- */}
         <div className="form-group">
             <label>Tu nombre completo</label>
             <input type="text" name="name" value={formData.name} onChange={handleChange} />
@@ -82,7 +81,7 @@ export default function Step1({ stepStatus, formData, errors, handleChange, onNe
         </div>
         <div className="form-group">
             <label>DNI</label>
-            <input type="text" name="dni" value={formData.dni} onChange={handleChange} />
+            <input type="number" name="dni" value={formData.dni} onChange={handleChange} />
             <p className="error-text">{errors.dni || ''}</p>
         </div>
         <div className="form-group">
