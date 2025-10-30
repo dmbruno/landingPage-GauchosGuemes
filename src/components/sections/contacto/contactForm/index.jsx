@@ -1,20 +1,19 @@
-// src/components/ContactForm/index.jsx
-
 import React, { useState } from 'react';
 import { useFormState } from './useFormState';
-import { validateStep1, validateAllData } from './validation';
+// Asegúrate de importar las TRES funciones de validación
+import { validateStep1, validateStep2, validateAllData } from './validation'; 
 import './contactForm.css';
 
 // Importamos los componentes de cada paso
 import Step1 from './steps/Step1';
-import Step2 from './steps/Step2';
-import Step3 from './steps/Step3';
-import SuccessStep from './steps/SuccessStep';
+import Step2 from './steps/Step2'; // El nuevo paso de calendario
+import Step3 from './steps/Step3'; // Antes era Step2 (Opcionales)
+import Step4 from './steps/Step4'; // Antes era Step3 (Revisión)
+import SuccessStep from './steps/SuccessStep'; // Ahora es el 5to paso
 
 export default function ContactForm() {
   const [status, setStatus] = useState('Enviar solicitud');
 
-  // Obtenemos todos los estados y funciones del hook
   const { 
     step, 
     formData, 
@@ -31,8 +30,20 @@ export default function ContactForm() {
     setFormError
   } = useFormState();
 
+  // --- ESTA ES LA LÓGICA CORREGIDA ---
+
+  // Validación para el Paso 1 (Datos personales)
   const handleStep1Next = () => {
-    const validationErrors = validateStep1(formData);
+    const validationErrors = validateStep1(formData); // Valida SOLO el Paso 1
+    setErrors(validationErrors);
+    if (Object.keys(validationErrors).length === 0) {
+      nextStep();
+    }
+  };
+
+  // Validación para el Paso 2 (Calendario)
+  const handleStep2Next = () => {
+    const validationErrors = validateStep2(formData); // Valida SOLO el Paso 2
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
       nextStep();
@@ -41,25 +52,30 @@ export default function ContactForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); 
+
+    if (formData.honeypot) {
+      console.warn("Detección de Bot (Honeypot). Envío bloqueado.");
+      setStatus('¡Enviado!');
+      nextStep(); 
+      return; 
+    }
+    
     if (!acceptedTerms) {
       alert("Debes aceptar la política de privacidad y los términos para continuar.");
       return;
     }
-    const validationErrors = validateAllData(formData);
+    
+    // Valida TODO antes de enviar
+    const validationErrors = validateAllData(formData); 
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
       setStatus('Enviando...');
-      setFormError(''); // Limpiamos errores anteriores
+      setFormError(''); 
       
       try {
-        // --- AQUÍ VA TU LÓGICA DE ENVÍO REAL ---
-        // Reemplaza esto con tu 'fetch' a tu API/backend
         const response = await new Promise((resolve, reject) => {
-          // --- Simulación de ÉXITO (comenta la línea de error para usar esta) ---
           setTimeout(() => resolve({ ok: true }), 1500);
-
-          // --- Simulación de ERROR (descomenta esta línea para probar el error) ---
           // setTimeout(() => reject(new Error('Fallo simulado del servidor')), 1500);
         });
 
@@ -67,26 +83,23 @@ export default function ContactForm() {
           throw new Error('El servidor no pudo procesar la solicitud.');
         }
 
-        // --- ÉXITO ---
         setStatus('¡Enviado!');
-        clearStoredForm(); // Limpia solo en caso de éxito
+        clearStoredForm(); 
         nextStep();
 
       } catch (error) {
-        // --- MANEJO DEL ERROR ---
         console.error('Error al enviar el formulario:', error);
-        setStatus('Reintentar'); // Cambiamos el texto del botón
+        setStatus('Reintentar'); 
         setFormError('No pudimos enviar tu solicitud. Por favor, intentá de nuevo o comunicate por WhatsApp.');
-        nextStep(); // Llevamos al usuario al "paso 4" (que ahora es éxito O error)
+        nextStep(); 
       }
     }
   };
 
-  // Lógica para asignar el estado a cada paso
   const getStepStatus = (currentStepNumber) => {
     if (currentStepNumber === step) return 'active';
-    if (currentStepNumber < step) return 'prev'; // Es un paso "pasado"
-    if (currentStepNumber > step) return 'next'; // Es un paso "futuro"
+    if (currentStepNumber < step) return 'prev'; 
+    if (currentStepNumber > step) return 'next'; 
     return '';
   };
 
@@ -94,24 +107,31 @@ export default function ContactForm() {
     <form onSubmit={handleSubmit} className="contact-form-slider">
       <div className="form-steps-container">
         
-        {/* Pasamos 'stepStatus' en lugar de 'isActive' */}
         <Step1 
           stepStatus={getStepStatus(1)}
           formData={formData} 
           errors={errors} 
           handleChange={handleChange} 
-          onNext={handleStep1Next} 
+          onNext={handleStep1Next} // <--- Usa el validador del Paso 1
         />
         <Step2 
           stepStatus={getStepStatus(2)}
           formData={formData} 
           errors={errors} 
           handleChange={handleChange} 
-          onNext={nextStep} 
+          onNext={handleStep2Next} // <--- Usa el validador del Paso 2
           onBack={prevStep} 
         />
         <Step3 
           stepStatus={getStepStatus(3)}
+          formData={formData} 
+          errors={errors} 
+          handleChange={handleChange} 
+          onNext={nextStep} // <--- Este pasa directo, sin validar
+          onBack={prevStep} 
+        />
+        <Step4
+          stepStatus={getStepStatus(4)}
           formData={formData} 
           acceptedTerms={acceptedTerms} 
           handleTermsChange={handleTermsChange} 
@@ -119,8 +139,8 @@ export default function ContactForm() {
           status={status} 
         />
         <SuccessStep 
-          stepStatus={getStepStatus(4)}
-          formError={formError} // Pasamos el error
+          stepStatus={getStepStatus(5)}
+          formError={formError} 
           onMount={clearStoredForm} 
         />
       </div>

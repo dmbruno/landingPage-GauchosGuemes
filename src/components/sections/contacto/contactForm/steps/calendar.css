@@ -1,8 +1,8 @@
 .rdp-root {
-    --rdp-accent-color: var(--color-amarillo); /* The accent color used for selected days and UI elements. */
-    --rdp-accent-background-color: var(--color-neutal-50); /* The accent background color used for selected days and UI elements. */
-    --rdp-day_button-width: 100%;
-    --rdp-today-color: var(--color-neutral-50);
+  --rdp-accent-color: var(--color-amarillo); /* The accent color used for selected days and UI elements. */
+  --rdp-accent-background-color: var(--color-neutal-50); /* The accent background color used for selected days and UI elements. */
+  --rdp-day_button-width: 100%;
+  --rdp-today-color: var(--color-neutral-50);
 }
 .rdp-month_caption {
   display: flex;

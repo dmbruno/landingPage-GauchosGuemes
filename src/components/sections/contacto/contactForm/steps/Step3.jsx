@@ -1,36 +1,33 @@
 // src/components/ContactForm/steps/Step3.jsx
-import React from 'react';
-
-export default function Step3({ stepStatus, formData, acceptedTerms, handleTermsChange, onBack, status }) {
+export default function Step3({ stepStatus, formData, errors, handleChange, onNext, onBack }) {
   
   return (
     <div className={`contact-form form-step ${stepStatus}`}>
       <div className="form-header">
-        <h3>Revisá tu solicitud</h3>
-        <p>Paso 3/3</p>
+        <h3>Datos opcionales</h3>
+        <p>Paso 3/4</p> {/* Actualizado */}
       </div>
-      <h4 className="contact-form-p">¡Tu reserva está casi lista! Revisá los datos antes de enviar.</h4>
-      <div className="review-data">
-        <p><strong>Nombre completo:</strong> {formData.name}</p>
-        <p><strong>DNI:</strong> {formData.dni}</p>
-        <p><strong>Email:</strong> {formData.email}</p>
-        <p><strong>Teléfono:</strong> {formData.phone}</p>
-        <p><strong>Fecha:</strong> {formData.date}</p>
-        {(formData.eventType || formData.guestCount || formData.services) && (
-          <>
-            {formData.eventType && <p><strong>Tipo de evento:</strong> {formData.eventType}</p>}
-            {formData.guestCount && <p><strong>Cantidad de personas:</strong> {formData.guestCount}</p>}
-            {formData.services && <p><strong>Servicios requeridos:</strong> {formData.services}</p>}
-          </>
-        )}
-      </div>
-      <div className="terms-group">
-        <input type="checkbox" id="terms" name="terms" checked={acceptedTerms} onChange={handleTermsChange} />
-        <label htmlFor="terms" className="terms-label">He leído y acepto los <a href="/politica-de-privacidad" target="_blank">Términos y Política de Privacidad</a>.</label>
+      <p className="form-description">Completalos si querés que nuestro equipo tenga más información y pueda contactarte de forma rápida y personalizada.</p>
+      <div className="formInputContainer">
+        <div className="form-group">
+            <label>Tipo de evento</label>
+            <input type="text" name="eventType" value={formData.eventType} onChange={handleChange} />
+            <p className="error-text">{errors.eventType || ''}</p>
+        </div>
+        <div className="form-group">
+            <label>Cantidad estimada de personas</label>
+            <input type="number" name="guestCount" value={formData.guestCount} onChange={handleChange} />
+            <p className="error-text">{errors.guestCount || ''}</p>
+        </div>
+        <div className="form-group">
+            <label>Servicios requeridos</label>
+            <input type="text" name="services" value={formData.services} onChange={handleChange} />
+            <p className="error-text"></p>
+        </div>
       </div>
       <div className="form-navigation space-between">
         <button type="button" onClick={onBack} className="secondary-btn">Volver</button>
-        <button type="submit" className="submit-btn celeste" disabled={status === 'Enviando...' || !acceptedTerms}>{status}</button>
+        <button type="button" onClick={onNext} className="submit-btn">Siguiente</button>
       </div>
     </div>
   );
