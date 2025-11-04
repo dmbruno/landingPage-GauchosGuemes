@@ -5,7 +5,7 @@ export default function Step3({ stepStatus, formData, errors, handleChange, onNe
     <div className={`contact-form form-step ${stepStatus}`}>
       <div className="form-header">
         <h3>Datos opcionales</h3>
-        <p>Paso 3/4</p> {/* Actualizado */}
+        <p>Paso 3/4</p> 
       </div>
       <p className="form-description">Completalos si querés que nuestro equipo tenga más información y pueda contactarte de forma rápida y personalizada.</p>
       <div className="formInputContainer">

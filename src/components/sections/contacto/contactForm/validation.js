@@ -2,14 +2,24 @@
 export function validateStep1(formData) {
   const errors = {};
   if (!formData.name.trim()) errors.name = 'El nombre es obligatorio.';
-  if (!formData.dni.trim()) errors.dni = 'El DNI es obligatorio.';
+  
+  // Validación de DNI
+  const dniRegex = /^[0-9]+$/; 
+  if (!dniRegex.test(formData.dni.trim())) {
+    // Esto se dispara si está vacío o si contiene letras/símbolos.
+    errors.dni = 'El DNI no es válido.';
+  }
+
+  // Validación de Email
   if (!formData.email.trim()) {
     errors.email = 'El email es obligatorio.';
   } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
     errors.email = 'El formato del email no es válido.';
   }
+
+  // Validación de Teléfono
   if (!formData.phone.trim()) errors.phone = 'El teléfono es obligatorio.';
-  // Quitamos la fecha de aquí
+  
   return errors;
 }
 
@@ -28,6 +38,7 @@ export function validateAllData(formData) {
     ...validateStep2(formData)
   };
   
+  // Validación de Invitados (Paso 3, por ejemplo)
   if (formData.guestCount && Number(formData.guestCount) <= 0) {
     errors.guestCount = 'La cantidad debe ser un número mayor a 0.';
   }
