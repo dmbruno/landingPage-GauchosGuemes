@@ -7,7 +7,7 @@ export default function Step4({ stepStatus, formData, acceptedTerms, handleTerms
     <div className={`contact-form form-step ${stepStatus}`}>
       <div className="form-header">
         <h3>Revisá tu solicitud</h3>
-        <p>Paso 4/4</p> {/* Actualizado */}
+        <p>Paso 4/4</p> 
       </div>
       <h4 className="contact-form-p">¡Tu reserva está casi lista! Revisá los datos antes de enviar.</h4>
       <div className="review-data">

@@ -13,7 +13,7 @@ import Step3 from './steps/Step3';
 import Step4 from './steps/Step4';
 import SuccessStep from './steps/SuccessStep';
 
-// 2. Quitamos toda la lógica de reCAPTCHA (wrapper, siteKey, etc.)
+
 export default function ContactForm() {
   const [status, setStatus] = useState('Enviar solicitud');
 
@@ -118,7 +118,7 @@ export default function ContactForm() {
     return '';
   };
 
-  // 5. El return vuelve a ser simple (sin el wrapper de reCAPTCHA)
+
   return (
     <form onSubmit={handleSubmit} className="contact-form-slider">
       <div className="form-steps-container">

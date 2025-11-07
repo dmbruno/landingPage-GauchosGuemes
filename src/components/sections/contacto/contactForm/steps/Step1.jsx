@@ -5,7 +5,7 @@ export default function Step1({ stepStatus, formData, errors, handleChange, onNe
     <div className={`contact-form form-step ${stepStatus}`}>
       <div className="form-header">
         <h3>Datos esenciales</h3>
-        <p>Paso 1/4</p> {/* Actualizado */}
+        <p>Paso 1/4</p>
       </div>
       <div className="formInputContainer">
         <div className="form-group">
