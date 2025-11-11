@@ -47,7 +47,7 @@ export default function ContactForm() {
   }, [step]); // Esto se ejecuta CADA VEZ que el 'step' cambia
 
 
-  // --- Lógica de validación de pasos (queda igual) ---
+  
   const handleStep1Next = () => {
     const validationErrors = validateStep1(formData);
     setErrors(validationErrors);
@@ -68,6 +68,7 @@ export default function ContactForm() {
   const handleSubmit = async (e) => {
     e.preventDefault(); 
 
+    // 1. Validación Honeypot (para bots)
     if (formData.honeypot) {
       console.warn("Detección de Bot (Honeypot). Envío bloqueado.");
       setStatus('¡Enviado!');
@@ -75,38 +76,109 @@ export default function ContactForm() {
       return; 
     }
     
+    // 2. Validación de Términos (Paso 4)
     if (!acceptedTerms) {
       alert("Debes aceptar la política de privacidad y los términos para continuar.");
       return;
     }
     
+    // 3. Validación de todos los campos (Paso 1, 2, 3)
     const validationErrors = validateAllData(formData);
     setErrors(validationErrors);
 
+    // 4. Si todas las validaciones pasan, se inicia el envío
     if (Object.keys(validationErrors).length === 0) {
       setStatus('Enviando...');
       setFormError('');
 
       try {
-        // VOLVEMOS A LA SIMULACIÓN
-        const response = await new Promise((resolve, reject) => {
-          setTimeout(() => resolve({ ok: true }), 1500);
-          // setTimeout(() => reject(new Error('Fallo simulado del servidor')), 1500);
+        // --- Lógica de división de nombre ---
+        // Se ejecuta antes de armar el primer payload
+        const fullText = formData.name.trim();
+        const parts = fullText.split(' ');
+        const firstName = parts[0] || '';
+        // Asume que el backend tiene last_name como nullable=True
+        const lastName = parts.slice(1).join(' ') || '';
+        // --- Fin de la lógica ---
+
+        
+        // --- PASO A: POST 1 - Crear el Cliente ---
+        const clientPayload = {
+          first_name: firstName,
+          last_name: lastName, 
+          email: formData.email,
+          dni: formData.dni,
+          phone: formData.phone,
+          accepted_terms: acceptedTerms // Se envía con los datos del cliente
+        };
+
+        // Asegúrate de que esta URL sea correcta
+        const clientResponse = await fetch('http://localhost:5000/clients', { 
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(clientPayload)
         });
 
-        if (!response.ok) {
-          throw new Error('El servidor no pudo procesar la solicitud.');
+        // Si el primer POST falla, nos detenemos aquí
+        if (!clientResponse.ok) {
+          const errorData = await clientResponse.json();
+          throw new Error(errorData.error || 'No se pudo registrar tus datos.');
         }
 
+        // Obtenemos el ID del cliente recién creado
+        const newClient = await clientResponse.json();
+        const newClientId = newClient.id; 
+
+        if (!newClientId) {
+          throw new Error('El backend no devolvió un ID de cliente válido.');
+        }
+
+        
+        // --- PASO B: POST 2 - Crear la Solicitud de Reserva ---
+        
+        // !! IMPORTANTE: Reemplaza '1' con el ID del salón que te dio el backend.
+        const VENUE_ID_FIJO = 1; 
+
+        const bookingPayload = {
+          client_id: newClientId,  // ID obtenido del Paso A
+          venue_id: VENUE_ID_FIJO, // ID Fijo del salón
+          
+          date: formData.date, // Dato del Paso 2 del form
+          // Datos opcionales del Paso 3 del form
+          guests_count: parseInt(formData.guestCount, 10),
+          event_type: formData.eventType,
+        };
+
+        // Asegúrate de que esta URL sea correcta
+        const bookingResponse = await fetch('http://localhost:5000/bookings', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(bookingPayload)
+        });
+
+        // Si el segundo POST falla
+        if (!bookingResponse.ok) {
+          const errorData = await bookingResponse.json();
+          // Nota: El cliente se creó, pero la reserva falló.
+          throw new Error(errorData.error || 'Se registraron tus datos, pero falló la reserva de fecha.');
+        }
+
+        // --- ÉXITO TOTAL (Ambos POST funcionaron) ---
         setStatus('¡Enviado!');
-        clearStoredForm(); 
-        nextStep();
+        clearStoredForm(); // Limpia los datos de sesión
+        nextStep(); // Avanza al paso de éxito
 
       } catch (error) {
-        console.error('Error al enviar el formulario:', error);
+        // --- MANEJO DE CUALQUIER ERROR (Paso A o B) ---
+        console.error('Error en el envío de dos pasos:', error);
         setStatus('Reintentar');
-        setFormError('No pudimos enviar tu solicitud. Por favor, intentá de nuevo.');
-        nextStep(); 
+        // Muestra el error específico al usuario en la pantalla de éxito/error
+        setFormError(error.message || 'No pudimos enviar tu solicitud. Intenta de nuevo.');
+        nextStep(); // Avanza al paso final para mostrar el error
       }
     }
   };

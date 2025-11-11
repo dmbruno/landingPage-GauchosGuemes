@@ -1,5 +1,5 @@
 // src/components/ContactForm/steps/SuccessStep.jsx
-import React, { useEffect } from 'react';
+import  { useEffect } from 'react';
 
 // Ícono de Éxito
 const SuccessIcon = () => (

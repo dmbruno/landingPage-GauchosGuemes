@@ -18,7 +18,7 @@ export default function Step2({ stepStatus, formData, errors, handleChange, onNe
       try {
         // Asumiendo que tu endpoint se llama '/api/reservas'
         // ¡Reemplaza esto con la URL de tu API real!
-        const response = await fetch('https://gauchos-backend.onrender.com/api/bookings'); 
+        const response = await fetch('https://gauchos-backend.onrender.com/api/bookings/reserved-dates'); 
 
         if (!response.ok) {
           throw new Error('La respuesta del servidor no fue exitosa.');

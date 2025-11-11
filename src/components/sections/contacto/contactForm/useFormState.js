@@ -7,7 +7,7 @@ const loadInitialState = () => {
     const storedItem = sessionStorage.getItem(STORAGE_KEY);
     const initialData = storedItem ? JSON.parse(storedItem) : {
       name: '', email: '', dni: '', phone: '', date: '',
-      eventType: '', guestCount: '', services: '',
+      eventType: '', guestCount: ''
     };
     
     // Aseguramos que el honeypot siempre inicie vacío

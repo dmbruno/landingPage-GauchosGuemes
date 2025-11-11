@@ -19,11 +19,6 @@ export default function Step3({ stepStatus, formData, errors, handleChange, onNe
             <input type="number" name="guestCount" value={formData.guestCount} onChange={handleChange} />
             <p className="error-text">{errors.guestCount || ''}</p>
         </div>
-        <div className="form-group">
-            <label>Servicios requeridos</label>
-            <input type="text" name="services" value={formData.services} onChange={handleChange} />
-            <p className="error-text"></p>
-        </div>
       </div>
       <div className="form-navigation space-between">
         <button type="button" onClick={onBack} className="secondary-btn">Volver</button>
