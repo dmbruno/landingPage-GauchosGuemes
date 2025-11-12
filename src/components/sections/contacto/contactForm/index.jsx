@@ -113,7 +113,7 @@ export default function ContactForm() {
         };
 
         // Asegúrate de que esta URL sea correcta
-        const clientResponse = await fetch('http://localhost:5000/clients', { 
+        const clientResponse = await fetch('https://gauchos-backend.onrender.com/api/clients', { 
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -152,7 +152,7 @@ export default function ContactForm() {
         };
 
         // Asegúrate de que esta URL sea correcta
-        const bookingResponse = await fetch('http://localhost:5000/bookings', {
+        const bookingResponse = await fetch('https://gauchos-backend.onrender.com/api/bookings', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

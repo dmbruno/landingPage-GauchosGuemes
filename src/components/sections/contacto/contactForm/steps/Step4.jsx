@@ -1,5 +1,4 @@
 // src/components/ContactForm/steps/Step4.jsx
-// (Este era tu antiguo Step3.jsx)
 
 export default function Step4({ stepStatus, formData, acceptedTerms, handleTermsChange, onBack, status }) {
   
