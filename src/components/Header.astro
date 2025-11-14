@@ -53,12 +53,16 @@ import arrowRight from '../assets/iconos/arrow_right_alt.svg'
 </header>
 
 <script>
-  // El script no necesita cambios
   const menuBtn = document.getElementById('menuBtn');
   const mobileMenu = document.getElementById('mobile-menu');
   const body = document.body;
   
-  menuBtn.addEventListener('click', () => {
+  // 1. Seleccionamos TODOS los links dentro del menú mobile
+  const mobileLinks = mobileMenu.querySelectorAll('a');
+
+  // 2. Creamos una función reutilizable para abrir/cerrar
+  // (Este es el mismo código que tenías en tu listener)
+  function toggleMenu() {
     menuBtn.classList.toggle('active');
     mobileMenu.classList.toggle('is-open');
     
@@ -71,10 +75,25 @@ import arrowRight from '../assets/iconos/arrow_right_alt.svg'
     } else {
       body.style.overflow = 'auto';
     }
+  }
+
+  // 3. Asignamos la función al botón principal
+  menuBtn.addEventListener('click', toggleMenu);
+
+  // 4. Asignamos un listener a CADA link del menú
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      // Si el menú está abierto cuando hacemos click en un link...
+      if (mobileMenu.classList.contains('is-open')) {
+        // ...lo cerramos llamando a la misma función.
+        toggleMenu();
+      }
+    });
   });
 </script>
 
 <style>
+    /* ... TU CSS SE MANTIENE EXACTAMENTE IGUAL ... */
     .site-header {
         background-color: var(--color-bordo);
         padding: var(--space-24px) var(--space-16px);

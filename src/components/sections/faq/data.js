@@ -14,7 +14,7 @@
   {
     id: 3,
     pregunta: "¿Cómo reservo la fecha?",
-    respuesta: "lorem ipsum lorema lorem lorem lorem ipsumo famadlade ",
+    respuesta: "Podes solicitar la fecha  ya sea a través de nuestro formulario de contacto o por whatsapp, luego nos pondremos en contacto para confirmar tu reserva.",
   },
   {
     id: 4,
