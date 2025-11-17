@@ -76,7 +76,7 @@ export async function POST({ request }) {
       client_id: newClientId,
       venue_id: VENUE_ID_FIJO,
       date: formData.date,
-      guests_count: formData.guestCount ? parseInt(formData.guestCount, 10) : null,
+      guests_count: parseInt(formData.guestCount, 10) || 0,
       event_type: formData.eventType || null,
     };
 
