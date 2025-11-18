@@ -1,0 +1,101 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="/logo-amarillo.svg" type="image/x-icon" />
+  <title>Gauchos de Güemes | Eventos y Convenciones</title>
+</head>
+<body>
+  <Header />
+  <main>
+    <section class="politica-privacidad padding-lateral">
+      <h2 class="titulo">Política de Privacidad y Tratamiento de Datos Personales</h2>
+
+      <p> En <b>Gauchos de Güemes salón de eventos y convenciones</b>, nos comprometemos a proteger tu privacidad. Esta política detalla cómo recopilamos, usamos y protegemos la información personal que nos proporcionas a través de nuestro formulario de contacto.</p>
+
+      <h4 class="subtitulo">1. ¿Qué datos personales recopilamos?</h4>
+      <p> A través de nuestro formulario, recopilamos la siguiente información: </p>
+      <ul>
+        <li>- Nombre y Apellido</li>
+        <li>- Correo Electrónico</li>
+        <li>- Número de Teléfono</li>
+        <li>- DNI</li>
+        <li>- Fecha solicitada</li>
+        <li>- Cualquier otra información que decidas incluir en los campos opcionales.</li>
+      </ul>
+
+      <h4 class="subtitulo">2. ¿Con qué finalidad utilizamos tus datos?</h4>
+      <p>Los datos que nos proporcionas se utilizan única y exclusivamente para los siguientes propósitos:</p>
+      <ul>
+        <li>- Responder a tus consultas, preguntas o solicitudes.</li>
+        <li>- Gestionar tu solicitud de reserva para nuestros servicios.</li>
+        <li>- Ponernos en contacto contigo para proporcionarte la información que has solicitado.</li>
+      </ul>
+      <p><b>IMPORTANTE:</b> NO utilizaremos tus datos para enviarte comunicaciones comerciales o marketing no solicitado, ni compartiremos tu información con terceros sin tu consentimiento explícito.</p>
+
+      <h4 class="subtitulo">3. ¿Por cuánto tiempo conservamos tus datos?</h4>
+      <p>Tus datos personales se conservarán mientras exista una relación comercial o de servicio entre tú y Gauchos de Güemes salón de eventos y convenciones, y también después de finalizada, por los siguientes motivos:</p>
+      <ul>
+        <li>- Para la gestión de tu historial: Guardamos un registro de tus
+          reservas y consultas para facilitar futuras gestiones, agilizar nuevos
+          pedidos y permitirte consultar tu historial de servicios con nosotros.
+        </li>
+        <li>- Por obligaciones administrativas y legales: Mantenemos la
+          información por los plazos que exigen las normativas vigentes para la
+          correcta administración del servicio y para responder ante posibles
+          reclamaciones.
+        </li>
+      </ul>
+      <p>Independientemente de lo anterior, tus datos se mantendrán en nuestra base de datos activa mientras no solicites su supresión. Una vez solicitada la supresión, los datos serán eliminados de nuestras bases de datos operativas.</p>
+
+      <h4 class="subtitulo">4. ¿Cuáles son tus derechos?</h4>
+      <p>De acuerdo con la <b>Ley N° 25.326</b>, tienes derecho a:</p>
+      <ul>
+        <li>- Acceder a los datos que tenemos sobre ti.</li>
+        <li>- Rectificar tus datos si son inexactos o incompletos.</li>
+        <li>- Solicitar la supresión de tus datos de nuestra base.</li>
+      </ul>
+      <p>Para ejercer estos derechos, puedes ponerte en contacto con nosotros a través del siguiente correo electrónico: <a class="mail" href="mailto:salongauchoguemes@gmail.com" target="_blank">salongauchoguemes@gmail.com</a>.</p>
+    </section>
+  </main>
+  <Footer />
+</body>
+<style>
+    main{
+        padding: var(--space-56px) 0;
+    }
+    .titulo{
+        padding: var(--space-16px) 0;
+    }
+    .subtitulo{
+      margin: var(--space-24px) 0 var(--space-8px);    
+    }
+    ul{
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-16px);
+        margin: var(--space-8px) 0 var(--space-8px) var(--space-16px);
+    }
+    p,li{
+        font-weight: var(--font-weight-regular);
+        line-height: var(--line-height-sm);
+        font-size: var( --font-size-16px);
+    }
+
+    .mail{
+      color: var(--color-bordo);
+      text-decoration: underline;
+    }
+    @media (min-width: 1024px) {
+        li, p{
+        font-weight: var(--font-weight-regular);
+        line-height: var(--line-height-lg);
+        font-size: var(--font-size-18px);
+    }
+    }
+</style>

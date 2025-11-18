@@ -25,7 +25,7 @@ export default function Step4({ stepStatus, formData, acceptedTerms, handleTerms
       </div>
       <div className="terms-group">
         <input type="checkbox" id="terms" name="terms" checked={acceptedTerms} onChange={handleTermsChange} />
-        <label htmlFor="terms" className="terms-label">He leído y acepto los <a href="/politica-de-privacidad" target="_blank">Términos y Política de Privacidad</a>.</label>
+        <label htmlFor="terms" className="terms-label">He leído y acepto los <a href="/politicaDePrivacidad" target="_blank">Política de Privacidad y Tratamiento de Datos Personales</a>.</label>
       </div>
       <div className="form-navigation space-between">
         <button type="button" onClick={onBack} className="secondary-btn">Volver</button>
