@@ -1,7 +1,7 @@
 // src/components/ContactForm/index.jsx
 
-// 1. Importamos 'useEffect' de React
-import React, { useState, useEffect } from 'react';
+
+import { useState, useEffect, useRef } from 'react';
 import { useFormState } from './useFormState';
 import { validateStep1, validateStep2, validateAllData } from './validation'; 
 import './contactForm.css';
@@ -13,7 +13,7 @@ import Step3 from './steps/Step3';
 import Step4 from './steps/Step4';
 import SuccessStep from './steps/SuccessStep';
 
-// --- CAMBIO 1: LEEMOS LA CLAVE PÚBLICA DEL .ENV ---
+// --- LEEMOS LA CLAVE PÚBLICA DEL .ENV ---
 const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 
 
@@ -35,8 +35,14 @@ export default function ContactForm() {
     setFormError
   } = useFormState();
 
-  // (El useEffect de scroll NO CAMBIA)
+  const esPrimerMontaje = useRef(true);
+
   useEffect(() => {
+
+    if (esPrimerMontaje.current) {
+      esPrimerMontaje.current = false;
+      return; // Salimos del useEffect
+    }
     const formSection = document.getElementById('contacto'); 
     if (formSection) {
       formSection.scrollIntoView({
@@ -47,7 +53,7 @@ export default function ContactForm() {
   }, [step]);
 
 
-  // (Los handleStep1Next y handleStep2Next NO CAMBIAN)
+
   const handleStep1Next = () => {
     const validationErrors = validateStep1(formData);
     setErrors(validationErrors);
@@ -64,7 +70,7 @@ export default function ContactForm() {
     }
   };
 
-  // --- CAMBIO 2: REEMPLAZA TU HANDLESUBMIT CON ESTE ---
+  // --- REEMPLAZA TU HANDLESUBMIT CON ESTE ---
   const handleSubmit = async (e) => {
     e.preventDefault(); 
 
@@ -139,7 +145,7 @@ export default function ContactForm() {
     }); // fin .ready() grecaptcha
   };
 
-  // (Tu getStepStatus NO CAMBIA)
+  // (getStepStatus)
   const getStepStatus = (currentStepNumber) => {
     if (currentStepNumber === step) return 'active';
     if (currentStepNumber < step) return 'prev';
@@ -148,7 +154,7 @@ export default function ContactForm() {
   };
 
 
-  // (Tu return JSX NO CAMBIA)
+  // (return JSX)
   return (
     <form onSubmit={handleSubmit} className="contact-form-slider">
       <div className="form-steps-container">
