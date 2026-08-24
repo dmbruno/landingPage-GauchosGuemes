@@ -8,44 +8,23 @@ const SuccessIcon = () => (
 </svg>
 );
 
-// Ícono de Error
-const ErrorIcon = () => (
-  <svg width="89" height="99" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" fill="#D93025"/>
-  </svg>
-);
-
-export default function SuccessStep({ stepStatus, onMount, formError }) {
-  
-  // Pon tu número de WhatsApp aquí (con código de país, sin + ni 00)
-  const whatsappNumber = '5493871234567'; // Ejemplo: 549 (Arg) + 387 (Salta) + 1234567
-  const whatsappLink = `https://wa.me/${whatsappNumber}?text=Hola,%20tuve%20un%20problema%20al%20enviar%20el%20formulario%20de%20la%20web.`;
+export default function SuccessStep({ stepStatus, onMount, whatsappLink }) {
 
   useEffect(() => {
-    // Limpia el storage SÓLO si el envío fue exitoso
-    if (stepStatus === 'active' && !formError && onMount) {
+    if (stepStatus === 'active' && onMount) {
       onMount();
     }
-  }, [stepStatus, onMount, formError]);
+  }, [stepStatus, onMount]);
 
   return (
     <div className={`contact-form success-message form-step ${stepStatus}`}>
-      {/* Renderizado condicional */}
-      {formError ? (
-        <>
-          <ErrorIcon />
-          <h4>Ocurrió un problema</h4>
-          <p>{formError}</p>
-          <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="submit-btn whatsapp-btn">
-            Contactar por WhatsApp
-          </a>
-        </>
-      ) : (
-        <>
-          <SuccessIcon />
-          <h4>¡Tu reserva ha sido solicitada!</h4>
-          <p>Nuestro equipo se pondrá en contacto pronto para coordinar la fecha y los detalles de tu evento.</p>
-        </>
+      <SuccessIcon />
+      <h4>¡Tu reserva ha sido solicitada!</h4>
+      <p>Te abrimos WhatsApp con tu solicitud lista para enviar. Si no se abrió, tocá el botón de abajo.</p>
+      {whatsappLink && (
+        <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="submit-btn whatsapp-btn">
+          Abrir WhatsApp
+        </a>
       )}
     </div>
   );

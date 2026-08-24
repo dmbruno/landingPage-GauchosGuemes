@@ -1,6 +1,6 @@
 // src/components/ContactForm/steps/Step4.jsx
 
-export default function Step4({ stepStatus, formData, acceptedTerms, handleTermsChange, onBack, status }) {
+export default function Step4({ stepStatus, formData, acceptedTerms, handleTermsChange, onBack }) {
   
   return (
     <div className={`contact-form form-step ${stepStatus}`}>
@@ -29,7 +29,7 @@ export default function Step4({ stepStatus, formData, acceptedTerms, handleTerms
       </div>
       <div className="form-navigation space-between">
         <button type="button" onClick={onBack} className="secondary-btn">Volver</button>
-        <button type="submit" className="submit-btn celeste" disabled={status === 'Enviando...' || !acceptedTerms}>{status}</button>
+        <button type="submit" className="submit-btn celeste" disabled={!acceptedTerms}>Enviar por WhatsApp</button>
       </div>
     </div>
   );

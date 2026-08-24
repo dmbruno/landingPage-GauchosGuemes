@@ -1,51 +1,10 @@
 // src/components/ContactForm/steps/Step2.jsx
-import { useState, useEffect } from 'react';
-import { DayPicker } from 'react-day-picker'; 
-import { es } from 'date-fns/locale';       
+import { DayPicker } from 'react-day-picker';
+import { es } from 'date-fns/locale';
 import 'react-day-picker/dist/style.css'
-import './calendar.css' 
+import './calendar.css'
 
 export default function Step2({ stepStatus, formData, errors, handleChange, onNext, onBack }) {
-  
-  const [fechasReservadas, setFechasReservadas] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); // Para saber si estamos cargando
-  const [fetchError, setFetchError] = useState(null); // Para guardar un posible error
-
-
-  useEffect(() => {
-    // Definimos una función asíncrona dentro del effect
-    const fetchFechasReservadas = async () => {
-      try {
-        // Asumiendo que tu endpoint se llama '/api/reservas'
-        // ¡Reemplaza esto con la URL de tu API real!
-        const response = await fetch('https://gauchos-backend.onrender.com/api/bookings/reserved-dates'); 
-
-        if (!response.ok) {
-          throw new Error('La respuesta del servidor no fue exitosa.');
-        }
-
-        // El backend debería devolver un array de strings: ["2025-11-20", "2025-11-25", ...]
-        const data = await response.json(); 
-
-        // Tu lógica para procesar las fechas es correcta, la reutilizamos
-        const reservadas = data.map(dateString => new Date(dateString.replace(/-/g, '/')));
-        
-        setFechasReservadas(reservadas);
-
-      } catch (error) {
-        console.error("Error al traer las fechas:", error);
-        setFetchError('No pudimos cargar las fechas disponibles. Por favor, intenta de nuevo.');
-      
-      } finally {
-        // Haya funcionado o no, dejamos de cargar
-        setIsLoading(false);
-      }
-    };
-
-    // Llamamos a la función
-    fetchFechasReservadas();
-    
-  }, []); 
 
   const selectedDate = formData.date ? new Date(formData.date.replace(/-/g, '/')) : undefined;
 
@@ -80,30 +39,15 @@ export default function Step2({ stepStatus, formData, errors, handleChange, onNe
             />
         </div>
         <div className="form-group-calendar">
-          
-          {/* Si está cargando, muestra esto */}
-          {isLoading && <p>Cargando fechas disponibles...</p>}
+          <DayPicker
+            captionLayout="label"
+            mode="single"
+            selected={selectedDate}
+            onSelect={handleDateChange}
+            disabled={[{ before: new Date() }]}
+            locale={es}
+          />
 
-          {/* Si hubo un error, muestra esto */}
-          {fetchError && <p className="error-text">{fetchError}</p>}
-
-          {/* Si NO está cargando Y NO hubo error, muestra el calendario */}
-          {!isLoading && !fetchError && (
-            <DayPicker
-              captionLayout="label"
-              mode="single"
-              selected={selectedDate}
-              onSelect={handleDateChange}
-              
-              disabled={[
-                { before: new Date() }, // Esto ya deshabilita los días pasados
-                ...fechasReservadas     // Esto deshabilita los días de tu API
-              ]} 
-              
-              locale={es} 
-            />
-          )}
-          
           <p className="error-text">{errors.date || ''}</p>
         </div>
       </div>
@@ -114,15 +58,3 @@ export default function Step2({ stepStatus, formData, errors, handleChange, onNe
     </div>
   );
 }
-
-
-
-
-
-  // useEffect(() => {
-  //   // --- DATOS SIMULADOS (PARA PRUEBAS) ---
-  //   // Reemplaza esto con tu fetch real cuando estés listo
-  //   const dataSimulada = ["2025-11-20", "2025-11-25", "2025-12-01"];
-  //   const reservadas = dataSimulada.map(dateString => new Date(dateString.replace(/-/g, '/')));
-  //   setFechasReservadas(reservadas);
-  // }, []); 

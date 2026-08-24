@@ -213,13 +213,11 @@
   display: inline-block; /* Para que el <a> se vea como un botón */
   text-decoration: none; /* Quitar subrayado del link */
   margin-top: 1rem;
-  background-color: #25D366; /* Color de WhatsApp */
-  border-color: #25D366;
+  background-color: var(--color-celeste);
+  border-color: var(--color-celeste);
 }
 .whatsapp-btn:hover {
-  background-color: #128C7E;
-  border-color: #128C7E;
-  opacity: 1; /* Sobreescribir el hover genérico */
+  opacity: 0.8;
 }
 
 /* --- NUEVO ESTILO PARA EL HONEYPOT --- */

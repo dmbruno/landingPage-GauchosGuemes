@@ -3,7 +3,8 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useFormState } from './useFormState';
-import { validateStep1, validateStep2, validateAllData } from './validation'; 
+import { validateStep1, validateStep2, validateAllData } from './validation';
+import { buildWhatsappLink } from './whatsapp';
 import './contactForm.css';
 
 // Importamos los componentes de cada paso
@@ -13,26 +14,20 @@ import Step3 from './steps/Step3';
 import Step4 from './steps/Step4';
 import SuccessStep from './steps/SuccessStep';
 
-// --- LEEMOS LA CLAVE PÚBLICA DEL .ENV ---
-const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
-
-
 export default function ContactForm() {
-  const [status, setStatus] = useState('Enviar solicitud');
+  const [whatsappLink, setWhatsappLink] = useState('');
 
-  const { 
-    step, 
-    formData, 
-    errors, 
-    setErrors, 
-    handleChange, 
-    nextStep, 
+  const {
+    step,
+    formData,
+    errors,
+    setErrors,
+    handleChange,
+    nextStep,
     prevStep,
     clearStoredForm,
     acceptedTerms,
     handleTermsChange,
-    formError,
-    setFormError
   } = useFormState();
 
   const esPrimerMontaje = useRef(true);
@@ -70,16 +65,14 @@ export default function ContactForm() {
     }
   };
 
-  // --- REEMPLAZA TU HANDLESUBMIT CON ESTE ---
-  const handleSubmit = async (e) => {
-    e.preventDefault(); 
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-    // 1. Validaciones locales (sin cambios)
+    // Honeypot: si un bot completó el campo oculto, simulamos éxito y cortamos acá.
     if (formData.honeypot) {
       console.warn("Detección de Bot (Honeypot). Envío bloqueado.");
-      setStatus('¡Enviado!');
       nextStep();
-      return; 
+      return;
     }
 
     if (!acceptedTerms) {
@@ -94,55 +87,14 @@ export default function ContactForm() {
       return; // Detiene si hay errores locales
     }
 
-    // 2. Iniciar envío y reCAPTCHA
-    setStatus('Verificando...');
-    setFormError('');
+    // Abrimos WhatsApp con los datos precargados. Se hace de forma síncrona,
+    // dentro del mismo click, para que el navegador no lo bloquee como pop-up.
+    const link = buildWhatsappLink(formData);
+    window.open(link, '_blank', 'noopener,noreferrer');
 
-    // 3. Usamos grecaptcha (cargado desde el Layout)
-    grecaptcha.ready(function() {
-      grecaptcha.execute(RECAPTCHA_SITE_KEY, {action: 'submit_form'}).then(async function(token) {
-
-        setStatus('Enviando...');
-
-        // 4. Preparamos UN payload para nuestro backend de Astro
-        const payload = {
-          formData: formData, 
-          acceptedTerms: acceptedTerms,
-          recaptcha_token: token 
-        };
-
-        try {
-          // 5. Hacemos UN fetch a nuestro backend de Astro
-          const response = await fetch('/api/enviar-formulario', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payload)
-          });
-
-          const data = await response.json();
-
-          if (!response.ok || !data.success) {
-            // Si el backend de Astro (o el de Python) falló
-            throw new Error(data.message || 'Error en el envío.');
-          }
-
-          // --- ÉXITO TOTAL ---
-          setStatus('¡Enviado!');
-          clearStoredForm(); 
-          nextStep(); // Avanza al paso de éxito
-
-        } catch (error) {
-          // --- MANEJO DE CUALQUIER ERROR ---
-          console.error('Error en handleSubmit:', error);
-          setStatus('Reintentar');
-          setFormError(error.message || 'No pudimos enviar tu solicitud.');
-          nextStep(); // Avanza al paso final para mostrar el error
-        }
-
-      }); // fin .then() grecaptcha
-    }); // fin .ready() grecaptcha
+    setWhatsappLink(link);
+    clearStoredForm();
+    nextStep();
   };
 
   // (getStepStatus)
@@ -184,16 +136,15 @@ export default function ContactForm() {
         />
         <Step4
           stepStatus={getStepStatus(4)}
-          formData={formData} 
-          acceptedTerms={acceptedTerms} 
-          handleTermsChange={handleTermsChange} 
-          onBack={prevStep} 
-          status={status} 
+          formData={formData}
+          acceptedTerms={acceptedTerms}
+          handleTermsChange={handleTermsChange}
+          onBack={prevStep}
         />
-        <SuccessStep 
+        <SuccessStep
           stepStatus={getStepStatus(5)}
-          formError={formError} 
-          onMount={clearStoredForm} 
+          whatsappLink={whatsappLink}
+          onMount={clearStoredForm}
         />
       </div>
     </form>
